@@ -1,4 +1,5 @@
 import Navbar from '@/components/Navbar'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import React from 'react'
 
@@ -7,6 +8,7 @@ const page = () => {
     <div className="flex">
     <Navbar mode="sidebar" />
     <div className="ml-60 flex flex-col gap-5 p-4  w-full">
+    <h2 className='text-black text-4xl font-semibold'>Your diary</h2>
       <Card className=''>
         <CardHeader>
           <CardTitle>
@@ -29,8 +31,8 @@ const page = () => {
           <small className="text-gray-500">Additional Info</small>
         </CardContent>
       </Card>
-      
     </div>
+    
   </div>
   )
 }

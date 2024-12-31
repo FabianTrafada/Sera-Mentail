@@ -6,12 +6,12 @@ import TestimonialSection from "@/components/Testimonial";
 
 export default function Home() {
   return (
-    <>
+    <div>
       <Navbar mode="navbar"/>
       <Hero />
       <FeatureSection />
       <TestimonialSection />
       <FooterSection />
-    </>
+    </div>
   );
 }

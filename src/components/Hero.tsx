@@ -21,11 +21,12 @@ export default function Hero() {
           {/* Right Section: Image */}
           <div className="relative w-full h-64 md:h-96">
             <Image
-              src="/test.png"
+              src="/carepulse.svg"
               alt="Landing page illustration"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-lg shadow-lg"
+              width={500}
+              height={500}
+            
+              className="ml-5 mb-6"
             />
           </div>
         </div>
