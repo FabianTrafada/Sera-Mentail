@@ -78,9 +78,9 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
                 Diary
               </Link>
               <Link
-                href="/about"
+                href="/ChatWithJoy"
                 className={`p-2 rounded ${
-                  isActive("/about")
+                  isActive("/ChatWithJoy")
                     ? "border-b-2 border-primaryColor"
                     : "hover:border-b-2 hover:border-gray-300"
                 }`}

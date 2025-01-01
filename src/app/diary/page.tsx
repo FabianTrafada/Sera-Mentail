@@ -32,7 +32,6 @@ const page = () => {
         </CardContent>
       </Card>
     </div>
-    
   </div>
   )
 }
