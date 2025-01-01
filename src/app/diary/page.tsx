@@ -8,7 +8,7 @@ const page = () => {
     <div className="flex">
     <Navbar mode="sidebar" />
     <div className="ml-60 flex flex-col gap-5 p-4  w-full">
-    <h2 className='text-black text-4xl font-semibold'>Your diary</h2>
+    <h2 className='text-black text-4xl font-semibold mt-5'>Your diary</h2>
       <Card className=''>
         <CardHeader>
           <CardTitle>
