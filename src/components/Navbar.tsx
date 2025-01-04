@@ -48,7 +48,7 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
     <div>
       {isMobile || mode === "sidebar" ? (
         <aside
-          className={`w-64 h-screen bg-white text-black p-4 flex flex-col justify-between absolute z-10 transition-transform duration-300 ${
+          className={`w-64 h-screen bg-white text-black absolute p-4 flex flex-col justify-between  z-10 transition-transform duration-300 ${
             mode === "sidebar" || isSidebarOpen
               ? "translate-x-0"
               : "-translate-x-full"
@@ -78,9 +78,9 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
                 Diary
               </Link>
               <Link
-                href="/about"
+                href="/ChatWithJoy"
                 className={`p-2 rounded ${
-                  isActive("/about")
+                  isActive("/ChatWithJoy")
                     ? "border-b-2 border-primaryColor"
                     : "hover:border-b-2 hover:border-gray-300"
                 }`}

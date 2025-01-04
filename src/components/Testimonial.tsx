@@ -60,7 +60,7 @@ const TestimonialSection = () => {
                     <p className="text-sm text-gray-500">{testimonial.role}</p>
                   </CardHeader>
                   <CardContent className="text-gray-600 italic">
-                    "{testimonial.feedback}"
+                    "{testimonial.testi}"
                   </CardContent>
                 </Card>
               </div>
