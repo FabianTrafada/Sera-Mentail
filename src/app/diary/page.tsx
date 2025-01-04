@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"; // Jika Anda memiliki komponen 
 import Link from "next/link"; // Untuk navigasi antar halaman
 import React, { useEffect, useState } from "react";
 
-const page = () => {
+const Diary = () => {
   const [diaries, setDiaries] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -62,4 +62,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Diary;
