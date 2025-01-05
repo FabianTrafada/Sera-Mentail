@@ -44,19 +44,21 @@ const Diary = () => {
             </Button>
           </Link>
         </div>
-        {diaries.map((diary: any) => (
-          <Card key={diary.id}>
-            <CardHeader>
-              <CardTitle>
-                <h2 className="text-xl font-bold">{diary.title}</h2>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-700">{diary.content}</p>
-              <small className="text-gray-500">{new Date(diary.createdAt).toLocaleDateString()}</small>
-            </CardContent>
-          </Card>
-        ))}
+        <div className="overflow-y-auto max-h-screen mt-5 pr-2">
+          {diaries.map((diary: any) => (
+            <Card key={diary.id} className="mb-4">
+              <CardHeader>
+                <CardTitle>
+                  <h2 className="text-xl font-bold">{diary.title}</h2>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700">{diary.content}</p>
+                <small className="text-gray-500">{new Date(diary.createdAt).toLocaleDateString()}</small>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );

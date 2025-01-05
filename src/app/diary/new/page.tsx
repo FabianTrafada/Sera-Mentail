@@ -4,6 +4,8 @@ import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { BadgeCheck } from 'lucide-react';
 
 const NewDiary = () => {
   const [title, setTitle] = useState('');
@@ -26,8 +28,14 @@ const NewDiary = () => {
 
       const newDiary = await response.json();
       console.log('Diary created:', newDiary);
+      toast.success('Diary created successfully!', {
+        icon: <BadgeCheck />,
+        className: 'bg-emerald-300 text-white',
+        
+      })
       router.push('/diary');
     } catch (error) {
+      toast.error('Failed to created diary. Please try again.')
       console.error('Error:', error);
     }
   };
