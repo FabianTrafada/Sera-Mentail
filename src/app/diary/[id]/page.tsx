@@ -9,6 +9,7 @@ export default function EditDiaryPage() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     // Fetch data diary berdasarkan ID
@@ -31,6 +32,32 @@ export default function EditDiaryPage() {
 
     fetchDiary();
   }, [id, router]);
+
+  async function handleDelete(e: React.FormEvent) {
+    e.preventDefault();
+    setDeleting(true);
+
+    try {
+      const response = await fetch('/api/diary', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      if (response.ok) {
+        router.push('/diary'); // Redirect ke halaman list diary
+      } else {
+        const data = await response.json();
+        console.error('Failed to delete diary:', data.error);
+      }
+    } catch (error) {
+      console.error('Failed to delete diary:', error);
+    } finally {
+      setDeleting(false);
+    }
+  }
 
   async function handleUpdate(e: React.FormEvent) {
     e.preventDefault();
@@ -88,13 +115,26 @@ export default function EditDiaryPage() {
             required
           />
         </div>
-        <button
-          type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
-          disabled={loading}
-        >
-          {loading ? 'Updating...' : 'Update'}
-        </button>
+        <div className="flex gap-4">
+          {/* Tombol Update */}
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+            disabled={loading}
+          >
+            {loading ? 'Updating...' : 'Update'}
+          </button>
+
+          {/* Tombol Delete */}
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="px-4 py-2 bg-red-500 text-white rounded disabled:opacity-50"
+            disabled={deleting}
+          >
+            {deleting ? 'Deleting...' : 'Delete'}
+          </button>
+        </div>
       </form>
     </div>
   );

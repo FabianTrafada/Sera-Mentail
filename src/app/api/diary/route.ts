@@ -168,3 +168,40 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ error: 'Failed to update diary' }, { status: 500 });
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    const user = await currentUser()
+
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { id } = await req.json();
+
+    const loggedInUser = await db.user.findUnique({
+      where: { clerkUserId: user.id },
+    });
+
+    if (!loggedInUser) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+
+    const diary = await db.diary.findUnique({
+      where: { id },
+    });
+
+    if (!diary || diary.userId !== loggedInUser.id) {
+      return NextResponse.json({ error: 'Diary not found or access denied' }, { status: 404 });
+    }
+
+    const deleteDiary = await db.diary.delete({
+      where: { id },
+    });
+
+    return NextResponse.json(deleteDiary, { status: 200 })
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: 'Failed to update diary' }, { status: 500 });
+  }
+}

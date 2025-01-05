@@ -65,7 +65,7 @@ const Diary = () => {
         {/* Display diaries */}
         {diaries.map((diary: any) => (
           <Link key={diary.id} href={`/diary/${diary.id}`}>
-            <Card className="cursor-pointer">
+            <Card className="cursor-pointer hover:transition hover:shadow-lg">
               <CardHeader>
                 <CardTitle>
                   <h2 className="text-xl font-bold">{diary.title}</h2>
