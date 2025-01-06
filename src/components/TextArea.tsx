@@ -5,7 +5,7 @@ import { Button } from './ui/button'
 
 const TextArea = () => {
   return (
-    <div className="flex flex-col w-full gap-2">
+    <div className="grid grid-cols-1 w-full gap-2">
     <Textarea placeholder="Type your message here." />
     <Button>Send message</Button>
   </div>
