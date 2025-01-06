@@ -43,7 +43,7 @@ const NewDiary = () => {
   return (
     <div className="flex">
       <Navbar mode="sidebar" />
-      <div className="ml-60 flex flex-col gap-5 p-4 w-full">
+      <div className="ml-64 flex flex-col gap-5 p-4 w-full">
         <h2 className="text-black text-4xl font-semibold mt-5">Add New Diary</h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <input
@@ -51,18 +51,18 @@ const NewDiary = () => {
             placeholder="Diary Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="p-3 border border-gray-300 rounded"
+            className="p-3 border border-gray-300 rounded-xl"
             required
           />
           <textarea
             placeholder="Diary Content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="p-3 border border-gray-300 rounded"
+            className="p-3 border border-gray-300 rounded-xl"
             rows={5}
             required
           />
-          <Button type="submit" className="bg-green-500 text-white hover:bg-green-600 px-4 py-2 rounded">
+          <Button type="submit" className="bg-primaryColor text-white hover:bg-purple-700 px-4 py-4 rounded">
             Save Diary
           </Button>
         </form>
