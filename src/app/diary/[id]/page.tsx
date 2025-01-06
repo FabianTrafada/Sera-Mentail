@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import { toast } from 'sonner';
+import { BadgeCheck } from 'lucide-react';
 
 export default function EditDiaryPage() {
   const router = useRouter();
@@ -47,7 +49,13 @@ export default function EditDiaryPage() {
       });
 
       if (response.ok) {
-        router.push('/diary'); // Redirect ke halaman list diary
+        router.push('/diary');
+        toast.success('Diary created successfully!', {
+          icon: <BadgeCheck />,
+          className: 'bg-red-500  text-white',
+        })
+
+        
       } else {
         const data = await response.json();
         console.error('Failed to delete diary:', data.error);
@@ -129,7 +137,7 @@ export default function EditDiaryPage() {
           <button
             type="button"
             onClick={handleDelete}
-            className="px-4 py-2 bg-red-500 text-white rounded disabled:opacity-50"
+            className="px-4 py-2 bg-red-500  text-white rounded disabled:opacity-50"
             disabled={deleting}
           >
             {deleting ? 'Deleting...' : 'Delete'}
