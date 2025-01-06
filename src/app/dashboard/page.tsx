@@ -8,7 +8,7 @@ const page = async () => {
   return (
     <div className='flex'>
       <Navbar mode='sidebar' />
-      <div className='ml-60 flex flex-col gap-5 p-4 w-full'>
+      <div className='ml-64 flex flex-col gap-5 p-4 w-full'>
         <h2 className='text-black text-4xl font-semibold mt-5'>Dashboard</h2>
         <h3 className='text-xl font-semibold text-gray-800'>Hello, {user?.firstName} {user?.lastName}</h3> 
         <Dashboard />

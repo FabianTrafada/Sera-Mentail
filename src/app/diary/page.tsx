@@ -38,20 +38,20 @@ const Diary = () => {
 
   return (
     <div className="flex">
-      <Navbar mode="sidebar" />
-      <div className="ml-60 flex flex-col gap-5 p-4 w-full">
-        <div className="flex items-center mt-5">
-          <h2 className="text-black flex justify-start text-4xl font-semibold">
+      <Navbar mode="sidebar"/>
+      <div className="ml-64 flex flex-col gap-5 p-4 w-full">
+        <div className="items-center mt-5">
+          <h2 className="text-black text-4xl font-semibold">
             Your diary
           </h2>
-          <div className="flex justify-end">
+          <div className="flex justify-between mt-5">
             {/* Search input */}
             <input
               type="text"
               placeholder="Search diaries..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="p-2 border rounded"
+              className="p-2 border rounded w-72"
             />
             {/* Button to go to Add Diary page */}
             <Link href="/diary/new">

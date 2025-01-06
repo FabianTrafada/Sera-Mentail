@@ -8,7 +8,7 @@ export default function AuthLayout({
     return (
         <div className="flex min-h-screen">
             {/* Left Section (Children) */}
-            <div className="flex-1 flex flex-col gap-y-5 items-center justify-center bg-gray-100">
+            <div className="flex-1 flex flex-col gap-y-5 items-center justify-center bg-white">
                 <h3 className="text-4xl z-10 font-bold text-primaryColor">Carepulse</h3>
                 {children}
             </div>
@@ -16,10 +16,10 @@ export default function AuthLayout({
             {/* Right Section (Image) */}
             <div className="flex-1 relative hidden md:block">
                 <Image
-                    src={'/JMK48.png'}
+                    src={'/carepulse.svg'}
                     alt="test"
-                    layout="fill"
-                    objectFit="cover"
+                    width={800}
+                    height={800}
                     className="rounded-lg"
                 />
             </div>
