@@ -55,14 +55,17 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
         {/* Header */}
         <div>
           <h1 className="text-2xl font-bold text-primaryColor tracking-wide text-center mb-8">
+            <Link href="/">
             Mentail
+            </Link>
+           
           </h1>
           <nav className="flex flex-col space-y-4">
             <Link
-              href="/"
+              href="/dashboard"
               className={`flex items-center gap-3 p-3 rounded-lg text-lg ${
-                isActive("/")
-                  ? "bg-primaryColor text-black shadow-md"
+                isActive("/dashboard")
+                  ? "bg-primaryColor text-white shadow-md"
                   : "hover:bg-primaryColor hover:text-white transition-all"
               }`}
             >
@@ -73,7 +76,7 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
               href="/diary"
               className={`flex items-center gap-3 p-3 rounded-lg text-lg ${
                 isActive("/diary")
-                  ? "bg-primaryColor text-black shadow-md"
+                  ? "bg-primaryColor text-white shadow-md"
                   : "hover:bg-primaryColor hover:text-white transition-all"
               }`}
             >
@@ -84,7 +87,7 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
               href="/ChatWithJoy"
               className={`flex items-center gap-3 p-3 rounded-lg text-lg ${
                 isActive("/ChatWithJoy")
-                  ? "bg-primaryColor text-black shadow-md"
+                  ? "bg-primaryColor text-white shadow-md"
                   : "hover:bg-primaryColor hover:text-white transition-all"
               }`}
             >

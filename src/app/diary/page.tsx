@@ -61,7 +61,7 @@ const Diary = () => {
             </Link>
           </div>
         </div>
-
+        
         {/* Display diaries */}
         {diaries.map((diary: any) => (
           <Link key={diary.id} href={`/diary/${diary.id}`}>
