@@ -74,7 +74,7 @@ const Diary = () => {
               <CardContent>
                 <p className="text-gray-700">{diary.content}</p>
                 <small className="text-gray-500">
-                  {new Date(diary.createdAt).toLocaleDateString()}
+                  {new Date(diary.updatedAt).toLocaleDateString()}
                 </small>
               </CardContent>
             </Card>
