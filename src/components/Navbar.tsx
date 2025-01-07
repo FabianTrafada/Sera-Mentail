@@ -136,7 +136,7 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
       ) : (
         <header className="w-full h-16 text-black flex items-center justify-between px-4 fixed z-10 bg-white">
           <div className="flex items-center">
-            <Image src="/favicon.ico" alt="logo" width={25} height={25} />
+            <Image src="/Logo.svg" alt="logo" width={30} height={30} />
             <h1 className="pl-2 text-lg font-bold text-primaryColor">Mentail</h1>
           </div>
           <nav className="absolute left-1/2 transform -translate-x-1/2 flex gap-x-12 items-center">
