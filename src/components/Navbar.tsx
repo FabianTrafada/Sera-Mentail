@@ -47,6 +47,13 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
   return (
     <div>
       {isMobile || mode === "sidebar" ? (
+        <div>
+            <button
+          className="fixed top-4 xl:hidden sm:block right-4 z-50 p-2 bg-gray-800 text-white rounded-md"
+          onClick={toggleSidebar}
+        >
+          <Menu className="size-4" />
+        </button>
         <aside
         className={`fixed top-0 left-0 h-screen w-64 bg-gradient-to-br bg-slate-50 text-black shadow-lg p-6 flex flex-col justify-between z-10 transition-transform duration-300 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -123,11 +130,13 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
           </SignedOut>
         </div>
       </aside>
+          
+        </div>
 
       ) : (
         <header className="w-full h-16 text-black flex items-center justify-between px-4 fixed z-10 bg-white">
           <div className="flex items-center">
-            <Image src="/favicon.ico" alt="logo" width={25} height={25} />
+            <Image src="/Logo.svg" alt="logo" width={30} height={30} />
             <h1 className="pl-2 text-lg font-bold text-primaryColor">Mentail</h1>
           </div>
           <nav className="absolute left-1/2 transform -translate-x-1/2 flex gap-x-12 items-center">

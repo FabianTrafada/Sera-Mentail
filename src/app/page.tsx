@@ -9,6 +9,7 @@ export default async function Home() {
   await checkUser();
   return (
     <div>
+        <link rel="icon" href="/Logo.svg" />
       <Navbar mode="navbar"/>
       <Hero />
       <FeatureSection />
