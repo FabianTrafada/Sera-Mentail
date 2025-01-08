@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import { toast } from 'sonner';
 
 export default function EditDiaryPage() {
   const router = useRouter();
   const { id } = useParams(); // Mendapatkan ID diary dari URL
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [analysis, setAnalysis] = useState(''); // For storing analysis result
+  const [analyzing, setAnalyzing] = useState(false); // For tracking analyze process
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -85,6 +88,31 @@ export default function EditDiaryPage() {
     }
   }
 
+  async function handleAnalyze() {
+    setAnalyzing(true);
+    setAnalysis(''); // Clear previous analysis
+    try {
+      const response = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content }),
+      });
+
+      if (response.ok) {
+        const data = await response.text();
+        setAnalysis(data || 'No analysis result found.'); // Assuming `result` contains the analysis
+      } else {
+        const error = await response.json();
+        toast.error(`Error analyzing content: ${error.error}`);
+      }
+    } catch (error) {
+      console.error('Failed to analyze content:', error);
+      toast.error('An error occurred while analyzing content.');
+    } finally {
+      setAnalyzing(false);
+    }
+  }
+
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold">Edit Diary</h1>
@@ -116,7 +144,6 @@ export default function EditDiaryPage() {
           />
         </div>
         <div className="flex gap-4">
-          {/* Tombol Update */}
           <button
             type="submit"
             className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
@@ -125,7 +152,6 @@ export default function EditDiaryPage() {
             {loading ? 'Updating...' : 'Update'}
           </button>
 
-          {/* Tombol Delete */}
           <button
             type="button"
             onClick={handleDelete}
@@ -134,8 +160,24 @@ export default function EditDiaryPage() {
           >
             {deleting ? 'Deleting...' : 'Delete'}
           </button>
+
+          <button
+            type="button"
+            onClick={handleAnalyze}
+            className="px-4 py-2 bg-green-500 text-white rounded disabled:opacity-50"
+            disabled={analyzing}
+          >
+            {analyzing ? 'Analyzing...' : 'Analyze'}
+          </button>
         </div>
       </form>
+
+      {analysis && (
+        <div className="mt-6 p-4 bg-gray-100 rounded">
+          <h2 className="text-lg font-bold">Analysis Result</h2>
+          <p>{analysis}</p>
+        </div>
+      )}
     </div>
   );
 }
