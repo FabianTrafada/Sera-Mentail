@@ -66,7 +66,6 @@ const Diary = () => {
         </div>
 
         {/* Display diaries */}
-<<<<<<< HEAD
         {diaries.map((diary: any) => (
           <Link key={diary.id} href={`/diary/${diary.id}`}>
             <Card className="cursor-pointer hover:transition hover:shadow-lg">
@@ -84,27 +83,6 @@ const Diary = () => {
             </Card>
           </Link>
         ))}
-=======
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {diaries.map((diary: any) => (
-            <Link key={diary.id} href={`/diary/${diary.id}`}>
-              <Card className="cursor-pointer hover:transition hover:shadow-lg">
-                <CardHeader>
-                  <CardTitle>
-                    <h2 className="text-lg lg:text-xl font-bold">{diary.title}</h2>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-700 truncate">{diary.content}</p>
-                  <small className="text-gray-500">
-                    {new Date(diary.createdAt).toLocaleDateString()}
-                  </small>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
->>>>>>> 1c757b4d6b60b6045779f76f592525e61c40b76a
 
         {/* Pagination controls */}
         <div className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-3">

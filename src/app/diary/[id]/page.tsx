@@ -106,8 +106,8 @@ export default function EditDiaryPage() {
       });
 
       if (response.ok) {
-        const data = await response.text();
-        setAnalysis(data || 'No analysis result found.'); // Assuming `result` contains the analysis
+        const data = await response.json();
+        setAnalysis(data.reply || 'No analysis result found.'); // Assuming `result` contains the analysis
       } else {
         const error = await response.json();
         toast.error(`Error analyzing content: ${error.error}`);
