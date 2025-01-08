@@ -180,6 +180,17 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
             >
               Testimonial
             </Link>
+
+            <Link
+              href="/article"
+              className={`pb-1 ${
+                isActive("/article")
+                  ? "border-b-2 border-primaryColor"
+                  : "hover:border-b-2 hover:border-gray-300"
+              }`}
+            >
+              Article
+            </Link>
           </nav>
           <div className="flex gap-x-4">
             <SignedIn>
