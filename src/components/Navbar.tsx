@@ -27,7 +27,7 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 1280);
     };
 
     handleResize();
@@ -49,7 +49,7 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
       {isMobile || mode === "sidebar" ? (
         <div>
             <button
-          className="fixed top-4 xl:hidden sm:block right-4 z-50 p-2 bg-gray-800 text-white rounded-md"
+          className="fixed top-4 xl:hidden md:block sm:block right-4 z-50 p-2 bg-gray-800 text-white rounded-md"
           onClick={toggleSidebar}
         >
           <Menu className="size-4" />
