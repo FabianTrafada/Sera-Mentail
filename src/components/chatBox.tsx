@@ -1,96 +1,90 @@
-"use client";
+'use client'
 
-import React, { useState, useEffect } from "react";
+import Navbar from "@/components/Navbar";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import React, { useState } from "react";
 
-const Chatbot = () => {
-  const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState("");
-  const [currentText, setCurrentText] = useState("");
+const ChatPage = () => {
+  const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const fetchResponse = async (message: string) => {
+  const handleSendMessage = async () => {
+    if (!input.trim()) return;
+
+    const userMessage = { role: "user", content: input };
+    setMessages((prev) => [...prev, userMessage]);
+
+    setInput(""); // Clear the input field
     setLoading(true);
-    setResponse("");
-    setCurrentText("");
 
     try {
-      const res = await fetch("/api/chat", {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ message: input }),
       });
-
-      const data = await res.json();
-      setResponse(data.response); // Full response
+  
+      const data = await response.json();
+  
+      if (data.error) {
+        throw new Error(data.error);
+      }
+  
+      const botMessage = { role: "system", content: data.reply };
+      setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
-      console.error("Error fetching chatbot response:", error);
-      setResponse("Something went wrong. Please try again.");
+      console.error("Error:", error.message || error);
+      setMessages((prev) => [
+        ...prev,
+        { role: "system", content: "Sorry, something went wrong." },
+      ]);
     } finally {
       setLoading(false);
     }
   };
 
-  // Typing effect for response
-  useEffect(() => {
-    if (!response) return;
-
-    let index = 0;
-    const typingInterval = setInterval(() => {
-      setCurrentText((prev) => prev + response[index]);
-      index++;
-      if (index === response.length) clearInterval(typingInterval);
-    }, 50); // Typing speed: 50ms per character
-
-    return () => clearInterval(typingInterval);
-  }, [response]);
-
-  const handleSend = () => {
-    if (input.trim() === "") return;
-    fetchResponse(input);
-    setInput(""); // Clear input field
-  };
-
   return (
-<div className="flex flex-col items-center justify-center min-h-screen">
-  {/* Chat window */}
-  <div className="w-full h-full min-h-screen bg-white shadow-lg p-4 flex flex-col">
-    <div className="flex-grow overflow-y-auto border-b p-2">
-      <div className="mb-2">
-        <strong>Chatbot:</strong>
-        <div className="text-gray-700">
-          {loading ? (
-            <div className="flex items-center space-x-1">
-              <span>Thinking</span>
-              <span className="dot-flash"></span>
-            </div>
-          ) : (
-            <p>{currentText || "Hello! How can I assist you today?"}</p>
-          )}
+    <div className="flex flex-col lg:flex-row h-screen">
+      <div className="lg:w-64 lg:h-full h-auto w-full">
+        <Navbar mode="sidebar" />
+      </div>
+
+      <div className="flex flex-col gap-5 p-4 flex-grow">
+        <div className="flex-grow">
+          <h2 className="text-2xl lg:text-4xl font-bold mt-5">Chat With Joy</h2>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <div className="flex-grow overflow-y-auto bg-gray-100 p-4 rounded-lg">
+            {messages.map((msg, idx) => (
+              <div
+                key={idx}
+                className={`p-2 ${
+                  msg.role === "user" ? "text-right bg-blue-500 text-white" : "text-left bg-gray-200"
+                } rounded-lg mb-2`}
+              >
+                {msg.content}
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 w-full gap-2">
+            <Textarea
+              placeholder="Type your message here."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              disabled={loading}
+            />
+            <Button onClick={handleSendMessage} disabled={loading}>
+              {loading ? "Sending..." : "Send message"}
+            </Button>
+          </div>
         </div>
       </div>
     </div>
-
-    {/* Input field */}
-    <div className="flex items-center mt-4">
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Type your message..."
-        className="flex-grow border rounded p-2"
-      />
-      <button
-        onClick={handleSend}
-        className="bg-blue-500 text-white rounded px-4 py-2 ml-2 hover:bg-blue-600"
-        disabled={loading}
-      >
-        Send
-      </button>
-    </div>
-  </div>
-</div>
-
   );
 };
 
-export default Chatbot;
+export default ChatPage;

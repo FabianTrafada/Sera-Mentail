@@ -71,15 +71,8 @@ export default function EditDiaryPage() {
         router.push('/diary');
         toast.success('Diary created successfully!', {
           icon: <BadgeCheck />,
-<<<<<<< HEAD
-          className: 'bg-red-500  text-white',
-        })
-
-
-=======
           className: 'bg-red-500 text-white',
         });
->>>>>>> 6b62129f68c69d73ff21f36b04184f0cdf1ad8c8
       } else {
         const data = await response.json();
         console.error('Failed to delete diary:', data.error);
@@ -146,106 +139,57 @@ export default function EditDiaryPage() {
     <div className='m-auto'>
       <div className="p-10 max-w-screen-xl mx-auto bg-white shadow-md rounded-lg">
         <h1 className="text-3xl font-semibold text-gray-800 mb-6">Edit Diary</h1>
-        <form onSubmit={handleUpdate}>
-          {/* Title Input */}
-          <div className="mb-5">
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
-              Title
-            </label>
-            <input
-              id="title"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              placeholder="Enter your diary title"
-              required
-            />
-          </div>
-
-<<<<<<< HEAD
-          {/* Content Input */}
-          <div className="mb-5">
-            <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
-              Content
-            </label>
-            <textarea
-              id="content"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              rows={6}
-              placeholder="Write your diary content here..."
-              required
-            />
-          </div>
-=======
-          <button
-            type="button"
-            onClick={handleDelete}
-            className="px-4 py-2 bg-red-500 text-white rounded disabled:opacity-50"
-            disabled={deleting}
-          >
-            {deleting ? 'Deleting...' : 'Delete'}
-          </button>
->>>>>>> 6b62129f68c69d73ff21f36b04184f0cdf1ad8c8
-
-          {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-4">
-            <button
-              type="submit"
-              className="w-full sm:w-auto px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
-              disabled={loading}
-            >
-              {loading ? 'Updating...' : 'Update'}
-            </button>
-
-<<<<<<< HEAD
-            <button
-              type="button"
-              onClick={handleDelete}
-              className="w-full sm:w-auto px-6 py-3 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition disabled:opacity-50"
-              disabled={deleting}
-            >
-              {deleting ? 'Deleting...' : 'Delete'}
-            </button>
-
-            <button
-              type="button"
-              onClick={handleAnalyze}
-              className="w-full sm:w-auto px-6 py-3 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600 transition disabled:opacity-50"
-              disabled={analyzing}
-            >
-              {analyzing ? 'Analyzing...' : 'Analyze'}
-            </button>
-          </div>
-        </form>
-
-        {/* Analysis Result */}
-        {analysis && (
-          <div className="mt-6 p-5 bg-gray-100 border border-gray-300 rounded-lg">
-            <h2 className="text-lg font-semibold text-gray-800 mb-3">Analysis Result</h2>
-            <p className="text-gray-700">{analysis}</p>
-          </div>
-        )}
-      </div>
-=======
-      {analyzing ? (
-        <div className="mt-6 p-4 bg-gray-100 rounded">
-          <h2 className="text-lg font-bold">Analysis Result</h2>
-          <p className="text-gray-700">Analyzing{typingDots}</p>
+        <form onSubmit={handleUpdate} />
+        {/* Title Input */}
+        <div className="mb-5">
+          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
+            Title
+          </label>
+          <input
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            placeholder="Enter your diary title"
+            required
+          />
         </div>
-      ) : (
-        analysis && (
-          <div className="mt-6 p-4 bg-gray-100 rounded">
-            <h2 className="text-lg font-bold">Analysis Result</h2>
-            <p>{analysis}</p>
-          </div>
-        )
-      )}
->>>>>>> 6b62129f68c69d73ff21f36b04184f0cdf1ad8c8
+
+        <button
+          type="button"
+          onClick={handleDelete}
+          className="px-4 py-2 bg-red-500 text-white rounded disabled:opacity-50"
+          disabled={deleting}
+        >
+          {deleting ? 'Deleting...' : 'Delete'}
+        </button>
+
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 mt-4">
+          <button
+            type="submit"
+            className="w-full sm:w-auto px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
+            disabled={loading}
+          >
+            {loading ? 'Updating...' : 'Update'}
+          </button>
+
+          {analyzing ? (
+            <div className="mt-6 p-4 bg-gray-100 rounded">
+              <h2 className="text-lg font-bold">Analysis Result</h2>
+              <p className="text-gray-700">Analyzing{typingDots}</p>
+            </div>
+          ) : (
+            analysis && (
+              <div className="mt-6 p-4 bg-gray-100 rounded">
+                <h2 className="text-lg font-bold">Analysis Result</h2>
+                <p>{analysis}</p>
+              </div>
+            )
+          )}
+        </div>
+      </div>
     </div>
-
-
   );
 }
