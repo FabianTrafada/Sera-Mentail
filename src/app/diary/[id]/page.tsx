@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { BadgeCheck } from 'lucide-react';
+import Navbar from '@/components/Navbar';
 
 export default function EditDiaryPage() {
   const router = useRouter();
@@ -137,6 +138,7 @@ export default function EditDiaryPage() {
 
   return (
     <div className="w-full min-h-screen  bg-gray-100 flex  items-center">
+      <Navbar mode="sidebar" />
       <div className="w-full max-w-screen-xl mx-auto p-10 bg-white  shadow-md rounded-lg h-full">
         <h1 className="text-3xl font-semibold text-gray-800 mb-6">Edit Diary</h1>
         <form onSubmit={handleUpdate}>
