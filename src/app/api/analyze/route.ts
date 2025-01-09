@@ -29,7 +29,7 @@ export async function POST(req: Request) {
           content: [
             {
               type: 'text',
-              text: `The diary says: ${content}. Respond like a mental health doctor. (and the language are the same with diary's language)`
+              text: `The diary says: ${content}. Respond like a mental health doctor and give him an tips and trick. (No special character like * and the language are the same with diary's language)`
             }
           ],
         },

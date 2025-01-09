@@ -14,6 +14,23 @@ export default function EditDiaryPage() {
   const [analyzing, setAnalyzing] = useState(false); // For tracking analyze process
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [typingDots, setTypingDots] = useState(''); // Typing animation
+
+  useEffect(() => {
+    let dotsInterval: NodeJS.Timeout;
+
+    if (analyzing) {
+      dotsInterval = setInterval(() => {
+        setTypingDots((prev) => (prev.length < 3 ? prev + '.' : ''));
+      }, 500); // Updates the dots every 500ms
+    } else {
+      setTypingDots('');
+    }
+
+    return () => {
+      clearInterval(dotsInterval);
+    };
+  }, [analyzing]);
 
   useEffect(() => {
     // Fetch data diary berdasarkan ID
@@ -54,10 +71,8 @@ export default function EditDiaryPage() {
         router.push('/diary');
         toast.success('Diary created successfully!', {
           icon: <BadgeCheck />,
-          className: 'bg-red-500  text-white',
-        })
-
-        
+          className: 'bg-red-500 text-white',
+        });
       } else {
         const data = await response.json();
         console.error('Failed to delete diary:', data.error);
@@ -162,7 +177,7 @@ export default function EditDiaryPage() {
           <button
             type="button"
             onClick={handleDelete}
-            className="px-4 py-2 bg-red-500  text-white rounded disabled:opacity-50"
+            className="px-4 py-2 bg-red-500 text-white rounded disabled:opacity-50"
             disabled={deleting}
           >
             {deleting ? 'Deleting...' : 'Delete'}
@@ -179,11 +194,18 @@ export default function EditDiaryPage() {
         </div>
       </form>
 
-      {analysis && (
+      {analyzing ? (
         <div className="mt-6 p-4 bg-gray-100 rounded">
           <h2 className="text-lg font-bold">Analysis Result</h2>
-          <p>{analysis}</p>
+          <p className="text-gray-700">Analyzing{typingDots}</p>
         </div>
+      ) : (
+        analysis && (
+          <div className="mt-6 p-4 bg-gray-100 rounded">
+            <h2 className="text-lg font-bold">Analysis Result</h2>
+            <p>{analysis}</p>
+          </div>
+        )
       )}
     </div>
   );

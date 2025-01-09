@@ -21,7 +21,7 @@ const page = () => {
   return (
     <div>
       <Navbar mode="navbar"/>
-       <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }} className="min-h-screen">
+      <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }} className="min-h-screen">
       <h1>{article.title}</h1>
       <p>{article.content}</p>
     </div>
