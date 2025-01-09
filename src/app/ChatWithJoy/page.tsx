@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
@@ -6,7 +6,9 @@ import { Textarea } from "@/components/ui/textarea";
 import React, { useState } from "react";
 
 const ChatPage = () => {
-  const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
+  const [messages, setMessages] = useState<{ role: string; content: string }[]>(
+    []
+  );
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -25,13 +27,13 @@ const ChatPage = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
       });
-  
+
       const data = await response.json();
-  
+
       if (data.error) {
         throw new Error(data.error);
       }
-  
+
       const botMessage = { role: "system", content: data.reply };
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
@@ -62,7 +64,9 @@ const ChatPage = () => {
               <div
                 key={idx}
                 className={`p-2 ${
-                  msg.role === "user" ? "text-right bg-blue-500 text-white" : "text-left bg-gray-200"
+                  msg.role === "user"
+                    ? "text-right bg-blue-500 text-white"
+                    : "text-left bg-gray-200"
                 } rounded-lg mb-2`}
               >
                 {msg.content}
