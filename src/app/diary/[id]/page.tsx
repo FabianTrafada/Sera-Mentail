@@ -136,12 +136,12 @@ export default function EditDiaryPage() {
   }
 
   return (
-    <div className="w-full min-h-screen  justify-center items-center bg-gray-100">
-      <div className="w-full max-w-screen-xl mx-auto p-10 bg-white shadow-md rounded-lg h-full">
+    <div className="w-full min-h-screen  bg-gray-100 flex  items-center">
+      <div className="w-full max-w-screen-xl mx-auto p-10 bg-white  shadow-md rounded-lg h-full">
         <h1 className="text-3xl font-semibold text-gray-800 mb-6">Edit Diary</h1>
         <form onSubmit={handleUpdate}>
           {/* Title Input */}
-          <div className="mb-5 flex flex-col gap-4">
+          <div className="mb-5 flex flex-col gap-4 items-center">
             <input
               id="title"
               type="text"
