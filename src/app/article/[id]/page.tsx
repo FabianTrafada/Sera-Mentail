@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { articles } from "../../../data/articles";
 import Navbar from "@/components/Navbar";
 
-const page = () => {
+const ArticlePage = () => {
   const router = useRouter();
   const { id } = useParams(); // Mengambil parameter ID dari URL
 
@@ -21,7 +21,7 @@ const page = () => {
   return (
     <div className="flex flex-col h-screen">
       <Navbar mode="navbar"/>
-       <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }} className="min-h-screen">
+      <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }} className="min-h-screen">
       <h1>{article.title}</h1>
       <p>{article.content}</p>
     </div>
@@ -30,4 +30,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ArticlePage;

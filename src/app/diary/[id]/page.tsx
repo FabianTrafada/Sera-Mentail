@@ -14,6 +14,23 @@ export default function EditDiaryPage() {
   const [analyzing, setAnalyzing] = useState(false); // For tracking analyze process
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [typingDots, setTypingDots] = useState(''); // Typing animation
+
+  useEffect(() => {
+    let dotsInterval: NodeJS.Timeout;
+
+    if (analyzing) {
+      dotsInterval = setInterval(() => {
+        setTypingDots((prev) => (prev.length < 3 ? prev + '.' : ''));
+      }, 500); // Updates the dots every 500ms
+    } else {
+      setTypingDots('');
+    }
+
+    return () => {
+      clearInterval(dotsInterval);
+    };
+  }, [analyzing]);
 
   useEffect(() => {
     // Fetch data diary berdasarkan ID
@@ -54,10 +71,15 @@ export default function EditDiaryPage() {
         router.push('/diary');
         toast.success('Diary created successfully!', {
           icon: <BadgeCheck />,
+<<<<<<< HEAD
           className: 'bg-red-500  text-white',
         })
 
 
+=======
+          className: 'bg-red-500 text-white',
+        });
+>>>>>>> 6b62129f68c69d73ff21f36b04184f0cdf1ad8c8
       } else {
         const data = await response.json();
         console.error('Failed to delete diary:', data.error);
@@ -106,8 +128,8 @@ export default function EditDiaryPage() {
       });
 
       if (response.ok) {
-        const data = await response.text();
-        setAnalysis(data || 'No analysis result found.'); // Assuming `result` contains the analysis
+        const data = await response.json();
+        setAnalysis(data.reply || 'No analysis result found.'); // Assuming `result` contains the analysis
       } else {
         const error = await response.json();
         toast.error(`Error analyzing content: ${error.error}`);
@@ -141,6 +163,7 @@ export default function EditDiaryPage() {
             />
           </div>
 
+<<<<<<< HEAD
           {/* Content Input */}
           <div className="mb-5">
             <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
@@ -156,6 +179,16 @@ export default function EditDiaryPage() {
               required
             />
           </div>
+=======
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="px-4 py-2 bg-red-500 text-white rounded disabled:opacity-50"
+            disabled={deleting}
+          >
+            {deleting ? 'Deleting...' : 'Delete'}
+          </button>
+>>>>>>> 6b62129f68c69d73ff21f36b04184f0cdf1ad8c8
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mt-4">
@@ -167,6 +200,7 @@ export default function EditDiaryPage() {
               {loading ? 'Updating...' : 'Update'}
             </button>
 
+<<<<<<< HEAD
             <button
               type="button"
               onClick={handleDelete}
@@ -195,6 +229,21 @@ export default function EditDiaryPage() {
           </div>
         )}
       </div>
+=======
+      {analyzing ? (
+        <div className="mt-6 p-4 bg-gray-100 rounded">
+          <h2 className="text-lg font-bold">Analysis Result</h2>
+          <p className="text-gray-700">Analyzing{typingDots}</p>
+        </div>
+      ) : (
+        analysis && (
+          <div className="mt-6 p-4 bg-gray-100 rounded">
+            <h2 className="text-lg font-bold">Analysis Result</h2>
+            <p>{analysis}</p>
+          </div>
+        )
+      )}
+>>>>>>> 6b62129f68c69d73ff21f36b04184f0cdf1ad8c8
     </div>
 
 
