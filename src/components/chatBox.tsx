@@ -51,44 +51,45 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 bg-gray-100 min-h-screen">
-      {/* Chat window */}
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-4">
-        <div className="h-64 overflow-y-auto border-b p-2">
-          <div className="mb-2">
-            <strong>Chatbot:</strong>
-            <div className="text-gray-700">
-              {loading ? (
-                <div className="flex items-center space-x-1">
-                  <span>Thinking</span>
-                  <span className="dot-flash"></span>
-                </div>
-              ) : (
-                <p>{currentText || "Hello! How can I assist you today?"}</p>
-              )}
+<div className="flex flex-col items-center justify-center min-h-screen">
+  {/* Chat window */}
+  <div className="w-full h-full min-h-screen bg-white shadow-lg p-4 flex flex-col">
+    <div className="flex-grow overflow-y-auto border-b p-2">
+      <div className="mb-2">
+        <strong>Chatbot:</strong>
+        <div className="text-gray-700">
+          {loading ? (
+            <div className="flex items-center space-x-1">
+              <span>Thinking</span>
+              <span className="dot-flash"></span>
             </div>
-          </div>
-        </div>
-
-        {/* Input field */}
-        <div className="flex items-center mt-4">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Type your message..."
-            className="flex-grow border rounded p-2"
-          />
-          <button
-            onClick={handleSend}
-            className="bg-blue-500 text-white rounded px-4 py-2 ml-2 hover:bg-blue-600"
-            disabled={loading}
-          >
-            Send
-          </button>
+          ) : (
+            <p>{currentText || "Hello! How can I assist you today?"}</p>
+          )}
         </div>
       </div>
     </div>
+
+    {/* Input field */}
+    <div className="flex items-center mt-4">
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Type your message..."
+        className="flex-grow border rounded p-2"
+      />
+      <button
+        onClick={handleSend}
+        className="bg-blue-500 text-white rounded px-4 py-2 ml-2 hover:bg-blue-600"
+        disabled={loading}
+      >
+        Send
+      </button>
+    </div>
+  </div>
+</div>
+
   );
 };
 

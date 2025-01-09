@@ -1,3 +1,4 @@
+import Chatbot from '@/components/chatBox'
 import Navbar from '@/components/Navbar'
 import TextArea from '@/components/TextArea'
 import React from 'react'
@@ -11,12 +12,13 @@ const page = () => {
 
     <div className="flex flex-col gap-5 p-4 flex-grow">
       <div className="flex-grow"> 
-        <h2 className="text-2xl lg:text-4xl font-bold mt-5">Chat With Joy</h2>
+        <h2 className="text-2xl lg:text-4xl font-bold mt-5  ">Chat With Joy</h2>
+         <div className='flex-grow h-full'>
+         <Chatbot/>
+      </div>
       </div>
       
-      <div>
-        <TextArea />
-      </div>
+     
     </div>
   </div>
   )

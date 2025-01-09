@@ -19,7 +19,7 @@ const page = () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col h-screen">
       <Navbar mode="navbar"/>
        <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }} className="min-h-screen">
       <h1>{article.title}</h1>
