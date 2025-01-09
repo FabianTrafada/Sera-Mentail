@@ -1,4 +1,4 @@
-const article = [
+export const articles = [
     {
         id: "1",
         title: "Introduction to Next.js",
@@ -16,5 +16,5 @@ const article = [
         title: "Introduction to Next.js",
         content: "Next.js is a React framework for building fast web applications.",
         
-    }
+    },
 ];
