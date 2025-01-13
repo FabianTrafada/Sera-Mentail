@@ -37,9 +37,6 @@ const page = () => {
               <CardTitle className="text-lg font-semibold text-gray-800">
                 {article.title}
               </CardTitle>
-              <CardDescription className="text-sm text-gray-500 mt-2">
-                {article.content}
-              </CardDescription>
             </CardContent>
             <CardFooter className="p-4">
               <Link href={`/article/${article.id}`} className="text-blue-500 font-semibold">
