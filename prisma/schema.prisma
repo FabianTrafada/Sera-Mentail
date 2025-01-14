@@ -13,17 +13,62 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  PATIENT
+  DOCTOR
+}
+
+enum Sender {
+  USER
+  DOCTOR
+}
+
 model User {
   id            String       @id @default(cuid())
   clerkUserId   String       @unique
   email         String       @unique
   name          String?
   imageUrl      String?
+  role          Role         @default(PATIENT)
   diaries       Diary[]
+  chats         Chat[]       @relation("UserChats")
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
 }
 
+model Doctor {
+  id           String        @id @default(cuid())
+  clerkUserId  String        @unique
+  email        String        @unique
+  name         String?
+  specialties  String[]
+  imageUrl     String?
+  chats        Chat[]        @relation("DoctorChats")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Chat {
+  id          String         @id @default(cuid())
+  userId      String
+  doctorId    String
+  user        User           @relation("UserChats", fields: [userId], references: [id], onDelete: Cascade)
+  doctor      Doctor         @relation("DoctorChats", fields: [doctorId], references: [id], onDelete: Cascade)
+  messages    Message[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model Message {
+  id          String         @id @default(cuid())
+  chatId      String
+  senderId    String
+  content     String         @db.Text
+  sender      Sender         
+  chat        Chat           @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  createdAt   DateTime       @default(now())
+}
+ 
 model Diary {
   id            String       @id @default(cuid())
   title         String       @db.VarChar(255)
