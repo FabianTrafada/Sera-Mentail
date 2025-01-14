@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { BadgeCheck } from 'lucide-react';
+import Navbar from '@/components/Navbar';
 
 export default function EditDiaryPage() {
   const router = useRouter();
@@ -136,77 +137,82 @@ export default function EditDiaryPage() {
   }
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">Edit Diary</h1>
-      <form onSubmit={handleUpdate} className="mt-4">
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-2" htmlFor="title">
-            Title
-          </label>
-          <input
-            id="title"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-4 py-2 border rounded"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-2" htmlFor="content">
-            Content
-          </label>
-          <textarea
-            id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className="w-full px-4 py-2 border rounded"
-            rows={6}
-            required
-          />
-        </div>
-        <div className="flex gap-4">
-          <button
-            type="submit"
-            className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
-            disabled={loading}
-          >
-            {loading ? 'Updating...' : 'Update'}
-          </button>
+    <div className="w-full min-h-screen  bg-gray-100 flex  items-center">
+      <Navbar mode="sidebar" />
+      <div className="w-full max-w-screen-xl mx-auto p-10 bg-white  shadow-md rounded-lg h-full">
+        <h1 className="text-3xl font-semibold text-gray-800 mb-6">Edit Diary</h1>
+        <form onSubmit={handleUpdate}>
+          {/* Title Input */}
+          <div className="mb-5 flex flex-col gap-4 items-center">
+            <input
+              id="title"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              placeholder="Enter your diary title"
+              required
+            />
 
-          <button
-            type="button"
-            onClick={handleDelete}
-            className="px-4 py-2 bg-red-500 text-white rounded disabled:opacity-50"
-            disabled={deleting}
-          >
-            {deleting ? 'Deleting...' : 'Delete'}
-          </button>
-
-          <button
-            type="button"
-            onClick={handleAnalyze}
-            className="px-4 py-2 bg-green-500 text-white rounded disabled:opacity-50"
-            disabled={analyzing}
-          >
-            {analyzing ? 'Analyzing...' : 'Analyze'}
-          </button>
-        </div>
-      </form>
-
-      {analyzing ? (
-        <div className="mt-6 p-4 bg-gray-100 rounded">
-          <h2 className="text-lg font-bold">Analysis Result</h2>
-          <p className="text-gray-700">Analyzing{typingDots}</p>
-        </div>
-      ) : (
-        analysis && (
-          <div className="mt-6 p-4 bg-gray-100 rounded">
-            <h2 className="text-lg font-bold">Analysis Result</h2>
-            <p>{analysis}</p>
+            <textarea
+              id="description"
+              value={content}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+              placeholder="Enter your diary title"
+              required
+            />
           </div>
-        )
-      )}
-    </div>
+
+
+          {/* Delete Button */}
+
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 mt-4">
+            <button
+              type="button"
+              onClick={handleDelete}
+              className="px-6 py-3 bg-red-500 text-white rounded-lg disabled:opacity-50"
+              disabled={deleting}
+            >
+              {deleting ? "Deleting..." : "Delete"}
+            </button>
+            <button
+              type="submit"
+              className="w-full sm:w-auto px-6 py-3 bg-primaryColor text-white font-medium rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
+              disabled={loading}
+            >
+              {loading ? "Updating..." : "Update"}
+            </button>
+
+            <button
+              type="button"
+              onClick={handleAnalyze}
+              className="px-4 py-2 bg-green-500 text-white rounded disabled:opacity-50"
+              disabled={analyzing}
+            >
+              {analyzing ? 'Analyzing...' : 'Analyze'}
+            </button>
+          </div>
+
+          {/* Analysis Result */}
+          <div className="mt-6">
+          {analyzing ? (
+              <div className="w-full max-w-screen-xl mx-auto p-10 bg-gray-300 shadow-md rounded-lg h-full">
+                <h2 className="text-lg font-bold">Analysis Result</h2>
+                <p className="text-gray-700">Analyzing{typingDots}</p>
+              </div>
+            ) : (
+              analysis && (
+                <div className="w-full max-w-screen-xl mx-auto p-10 bg-gray-300 shadow-md rounded-lg h-full">
+                  <h2 className="text-2xl text-primaryColor font-bold">Analysis Result</h2>
+                  <p>{analysis}</p>
+                </div>
+              )
+            )}
+          </div>
+        </form>
+        </div>
+      </div>
   );
 }

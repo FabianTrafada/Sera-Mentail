@@ -3,12 +3,11 @@
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { motion } from "framer-motion";
 import React, { useState } from "react";
 
 const ChatPage = () => {
-  const [messages, setMessages] = useState<{ role: string; content: string }[]>(
-    []
-  );
+  const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -59,10 +58,14 @@ const ChatPage = () => {
         </div>
 
         <div className="flex flex-col gap-4">
+          {/* Chat Messages */}
           <div className="flex-grow overflow-y-auto bg-gray-100 p-4 rounded-lg">
             {messages.map((msg, idx) => (
-              <div
+              <motion.div
                 key={idx}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
                 className={`p-2 ${
                   msg.role === "user"
                     ? "text-right bg-blue-500 text-white"
@@ -70,10 +73,23 @@ const ChatPage = () => {
                 } rounded-lg mb-2`}
               >
                 {msg.content}
-              </div>
+              </motion.div>
             ))}
+
+            {/* Typing Animation */}
+            {loading && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
+                className="text-left text-gray-500 italic"
+              >
+                Typing...
+              </motion.div>
+            )}
           </div>
 
+          {/* Input Section */}
           <div className="grid grid-cols-1 w-full gap-2">
             <Textarea
               placeholder="Type your message here."
