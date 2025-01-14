@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { toast } from 'sonner';
-import { BadgeCheck } from 'lucide-react';
+import { BadgeCheck, FileX } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 
 export default function EditDiaryPage() {
@@ -70,8 +70,8 @@ export default function EditDiaryPage() {
 
       if (response.ok) {
         router.push('/diary');
-        toast.success('Diary created successfully!', {
-          icon: <BadgeCheck />,
+        toast.success('Diary successfully deleted!', {
+          icon: <FileX/>,
           className: 'bg-red-500 text-white',
         });
       } else {
@@ -99,7 +99,11 @@ export default function EditDiaryPage() {
       });
 
       if (response.ok) {
-        router.push('/diary'); // Redirect ke halaman list diary
+        router.push('/diary'); 
+        toast.success('diary successfully Updated!', {
+          icon: <BadgeCheck />,
+          className: 'bg-green-500 text-white',
+        })// Redirect ke halaman list diary
       } else {
         const data = await response.json();
         console.error('Failed to update diary:', data.error);
@@ -137,82 +141,84 @@ export default function EditDiaryPage() {
   }
 
   return (
-    <div className="w-full min-h-screen  bg-gray-100 flex  items-center">
+    <div className="flex min-h-screen bg-gray-100">
+    {/* Sidebar */}
+    <div className="w-64 bg-gray-200 shadow-md">
       <Navbar mode="sidebar" />
-      <div className="w-full max-w-screen-xl mx-auto p-10 bg-white  shadow-md rounded-lg h-full">
-        <h1 className="text-3xl font-semibold text-gray-800 mb-6">Edit Diary</h1>
-        <form onSubmit={handleUpdate}>
-          {/* Title Input */}
-          <div className="mb-5 flex flex-col gap-4 items-center">
-            <input
-              id="title"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              placeholder="Enter your diary title"
-              required
-            />
-
-            <textarea
-              id="description"
-              value={content}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
-              placeholder="Enter your diary title"
-              required
-            />
-          </div>
-
-
-          {/* Delete Button */}
-
-          {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-4">
-            <button
-              type="button"
-              onClick={handleDelete}
-              className="px-6 py-3 bg-red-500 text-white rounded-lg disabled:opacity-50"
-              disabled={deleting}
-            >
-              {deleting ? "Deleting..." : "Delete"}
-            </button>
-            <button
-              type="submit"
-              className="w-full sm:w-auto px-6 py-3 bg-primaryColor text-white font-medium rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
-              disabled={loading}
-            >
-              {loading ? "Updating..." : "Update"}
-            </button>
-
-            <button
-              type="button"
-              onClick={handleAnalyze}
-              className="px-4 py-2 bg-green-500 text-white rounded disabled:opacity-50"
-              disabled={analyzing}
-            >
-              {analyzing ? 'Analyzing...' : 'Analyze'}
-            </button>
-          </div>
-
-          {/* Analysis Result */}
-          <div className="mt-6">
-          {analyzing ? (
-              <div className="w-full max-w-screen-xl mx-auto p-10 bg-gray-300 shadow-md rounded-lg h-full">
-                <h2 className="text-lg font-bold">Analysis Result</h2>
-                <p className="text-gray-700">Analyzing{typingDots}</p>
-              </div>
-            ) : (
-              analysis && (
-                <div className="w-full max-w-screen-xl mx-auto p-10 bg-gray-300 shadow-md rounded-lg h-full">
-                  <h2 className="text-2xl text-primaryColor font-bold">Analysis Result</h2>
-                  <p>{analysis}</p>
-                </div>
-              )
-            )}
-          </div>
-        </form>
+    </div>
+  
+    {/* Konten Utama */}
+    <div className="flex-1 mx-auto px-6 py-10 bg-white shadow-md rounded-lg">
+      <h1 className="text-3xl font-semibold text-gray-800 mb-6">Edit Diary</h1>
+      <form onSubmit={handleUpdate}>
+        {/* Title Input */}
+        <div className="mb-5 flex flex-col gap-4">
+          <input
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            placeholder="Enter your diary title"
+            required
+          />
+  
+          <textarea
+            id="description"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            placeholder="Enter your diary content"
+            required
+          />
         </div>
-      </div>
+  
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 mt-4">
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="px-6 py-3 bg-red-500 text-white rounded-lg disabled:opacity-50"
+            disabled={deleting}
+          >
+            {deleting ? "Deleting..." : "Delete"}
+          </button>
+          <button
+            type="submit"
+            className="w-full sm:w-auto px-6 py-3 bg-primaryColor text-white font-medium rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
+            disabled={loading}
+          >
+            {loading ? "Updating..." : "Update"}
+          </button>
+          <button
+            type="button"
+            onClick={handleAnalyze}
+            className="px-4 py-2 bg-green-500 text-white rounded disabled:opacity-50"
+            disabled={analyzing}
+          >
+            {analyzing ? 'Analyzing...' : 'Analyze'}
+          </button>
+        </div>
+  
+        {/* Analysis Result */}
+        <div className="mt-6">
+          {analyzing ? (
+            <div className="w-full p-4 bg-gray-300 shadow-md rounded-lg">
+              <h2 className="text-lg font-bold">Analysis Result</h2>
+              <p className="text-gray-700">Analyzing{typingDots}</p>
+            </div>
+          ) : (
+            analysis && (
+              <div className="w-full p-4 bg-gray-300 shadow-md rounded-lg">
+                <h2 className="text-2xl text-primaryColor font-bold">Analysis Result</h2>
+                <p>{analysis}</p>
+              </div>
+            )
+          )}
+        </div>
+      </form>
+    </div>
+  </div>
+  
   );
 }

@@ -28,7 +28,7 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 1280);
+      setIsMobile(window.innerWidth <= 768);
     };
 
     handleResize();
@@ -126,7 +126,7 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
               </SignedIn>
               <SignedOut>
                 <Link href="/sign-in">
-                  <button className="w-full p-3 rounded-lg bg-primaryColor text-black font-bold shadow-md hover:bg-yellow-400 transition-all">
+                  <button className="w-full p-3 rounded-lg  border-primaryColor border-2  text-black font-bold shadow-md hover:bg-indigo-600 hover:text-white transition-all">
                     Sign In
                   </button>
                 </Link>
