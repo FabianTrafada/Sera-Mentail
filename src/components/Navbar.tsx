@@ -101,7 +101,7 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
 
                 <Link
                   href="/article"
-                  className={`flex items-center gap-3 p-3 rounded-lg text-lg ${isActive("/ChatWithJoy")
+                  className={`flex items-center gap-3 p-3 rounded-lg text-lg ${isActive("/article")
                       ? "bg-primaryColor text-white shadow-md"
                       : "hover:bg-primaryColor hover:text-white transition-all"
                     }`}
