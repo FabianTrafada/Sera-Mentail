@@ -28,7 +28,7 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 1280);
+      setIsMobile(window.innerWidth <= 768);
     };
 
     handleResize();
@@ -113,30 +113,26 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
             </div>
 
             {/* Footer */}
-            <div className="flex flex-col gap-4">
-              <SignedIn>
-                <ClerkLoading>
-                  <div className="text-center">
-                    <div className="animate-spin w-6 h-6 border-2 border-white border-t-transparent rounded-full mx-auto"></div>
-                  </div>
-                </ClerkLoading>
-                <ClerkLoaded>
-                  <UserButton afterSignOutUrl="/" />
-                </ClerkLoaded>
-              </SignedIn>
-              <SignedOut>
-                <Link href="/sign-in">
-                  <button className="w-full p-3 rounded-lg bg-primaryColor text-black font-bold shadow-md hover:bg-yellow-400 transition-all">
-                    Sign In
-                  </button>
+            <div className="flex gap-x-4">
+            <SignedIn>
+              <ClerkLoading>
+                <Loader2 className="animate-spin" />
+              </ClerkLoading>
+              <ClerkLoaded>
+                <UserButton />
+              </ClerkLoaded>
+            </SignedIn>
+            <SignedOut>
+              <Button variant="primaryOutline">
+                <Link href="/sign-in" className="text-primaryColor">
+                  Sign in
                 </Link>
-                <Link href="/sign-up">
-                  <button className="w-full p-3 rounded-lg bg-primaryColor text-white font-bold shadow-md hover:bg-indigo-600 transition-all">
-                    Sign Up
-                  </button>
-                </Link>
-              </SignedOut>
-            </div>
+              </Button>
+              <Button>
+                <Link href="/sign-up">Sign Up</Link>
+              </Button>
+            </SignedOut>
+          </div>
           </aside>
 
         </div>
