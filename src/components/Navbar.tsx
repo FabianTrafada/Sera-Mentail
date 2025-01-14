@@ -110,7 +110,7 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
                 <Link
                   href="/article"
                   className={`flex items-center gap-3 p-3 rounded-lg text-lg ${
-                    isActive("/ChatWithJoy")
+                    isActive("/article")
                       ? "bg-primaryColor text-white shadow-md"
                       : "hover:bg-primaryColor hover:text-white transition-all"
                   }`}
@@ -122,24 +122,26 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
             </div>
 
             {/* Footer */}
-            <div className="flex gap-x-4">
+            <div className="flex flex-col gap-4">
               <SignedIn>
                 <ClerkLoading>
                   <Loader2 className="animate-spin" />
                 </ClerkLoading>
                 <ClerkLoaded>
-                  <UserButton />
+                  <UserButton afterSignOutUrl="/" />
                 </ClerkLoaded>
               </SignedIn>
               <SignedOut>
-                <Button variant="primaryOutline">
-                  <Link href="/sign-in" className="text-primaryColor">
-                    Sign in
-                  </Link>
-                </Button>
-                <Button>
-                  <Link href="/sign-up">Sign Up</Link>
-                </Button>
+                <Link href="/sign-in">
+                  <button className="w-full p-3 rounded-lg  border-primaryColor border-2  text-black font-bold shadow-md hover:bg-indigo-600 hover:text-white transition-all">
+                    Sign In
+                  </button>
+                </Link>
+                <Link href="/sign-up">
+                  <button className="w-full p-3 rounded-lg bg-primaryColor text-white font-bold shadow-md hover:bg-indigo-600 transition-all">
+                    Sign Up
+                  </button>
+                </Link>
               </SignedOut>
             </div>
           </aside>
