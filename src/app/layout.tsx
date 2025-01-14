@@ -22,6 +22,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+          <link rel="icon" href="/favicon.ico" />
         <body className={`${poppins.variable} antialiased`}>
           <Toaster />
           {children}
