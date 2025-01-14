@@ -5,6 +5,7 @@ import { articles } from "../../../data/articles";
 import Navbar from "@/components/Navbar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 const ArticlePage = () => {
   const router = useRouter();
@@ -17,7 +18,9 @@ const ArticlePage = () => {
   const article = articles.find((article) => article.id === id);
 
   if (!article) {
-    return <div>Article not found</div>;
+    <div className="flex items-center justify-center h-screen">
+    <Loader2 className="animate-spin"/>
+  </div>
   }
 
   return (
@@ -42,6 +45,7 @@ const ArticlePage = () => {
             <h2 className="text-2xl font-bold mb-4">Other Articles</h2>
             {articles
               .filter((otherArticle) => otherArticle.id !== article.id)
+              .slice(0, 2) // Limit to 2 articles
               .map((otherArticle) => (
                 <Card key={otherArticle.id} className="bg-white shadow-lg rounded-lg overflow-hidden mb-5">
                   <CardHeader className="p-0">

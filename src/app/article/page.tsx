@@ -6,6 +6,8 @@ import { articles } from "../../data/articles";
 import Image from 'next/image';
 
 const page = () => {
+
+  
   return (
     <div className="min-h-screen bg-gray-50">
     {/* Navbar */}
