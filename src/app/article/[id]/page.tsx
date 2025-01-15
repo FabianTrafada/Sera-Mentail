@@ -7,20 +7,36 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 const ArticlePage = () => {
   const { id } = useParams(); // Mengambil parameter ID dari URL
 
-  if (!id) {
-    return <div>Loading...</div>; // Handle saat ID belum tersedia
+  // Optional: You can add a loading state if fetching data asynchronously
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (id) {
+      setLoading(false);
+    }
+  }, [id]);
+
+  if (!id || loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader2 className="animate-spin" />
+      </div>
+    ); // Handle saat ID belum tersedia atau loading
   }
 
   const article = articles.find((article) => article.id === id);
 
   if (!article) {
-    <div className="flex items-center justify-center h-screen">
-    <Loader2 className="animate-spin"/>
-  </div>
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-xl">Article not found.</p>
+      </div>
+    );
   }
 
   return (
@@ -45,7 +61,7 @@ const ArticlePage = () => {
             <h2 className="text-2xl font-bold mb-4">Other Articles</h2>
             {articles
               .filter((otherArticle) => otherArticle.id !== article.id)
-              .slice(0, 2) // Limit to 2 articles
+              .slice(0, 2) /* Limit to 2 articles */
               .map((otherArticle) => (
                 <Card key={otherArticle.id} className="bg-white shadow-lg rounded-lg overflow-hidden mb-5">
                   <CardHeader className="p-0">

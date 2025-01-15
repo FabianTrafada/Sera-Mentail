@@ -7,50 +7,65 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 
-const Diary = () => {
-  const [diaries, setDiaries] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState(""); // State for search term
-  const [page, setPage] = useState(1); // State for current page
-  const [totalPages, setTotalPages] = useState(1); // Total pages for pagination
+// Define interfaces for type safety
+interface DiaryEntry {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  // Add other relevant fields if necessary
+}
+
+interface FetchDiariesResponse {
+  diaries: DiaryEntry[];
+  totalPages: number;
+  // Include other response fields if present
+}
+
+const Diary: React.FC = () => {
+  const [diaries, setDiaries] = useState<DiaryEntry[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [search, setSearch] = useState<string>(""); // State for search term
+  const [page, setPage] = useState<number>(1); // State for current page
+  const [totalPages, setTotalPages] = useState<number>(1); // Total pages for pagination
 
   useEffect(() => {
     const fetchDiaries = async () => {
       try {
-        const res = await fetch(`/api/diary?search=${search}&page=${page}`);
+        const res = await fetch(`/api/diary?search=${encodeURIComponent(search)}&page=${page}`);
         if (!res.ok) throw new Error("Failed to fetch diaries");
-
-        const data = await res.json();
+  
+        const data: FetchDiariesResponse = await res.json();
         setDiaries(data.diaries);
-        setTotalPages(data.totalPages); // Set total pages from response
+        setTotalPages(data.totalPages);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching diaries:", error);
+        // Optionally, set an error state here to inform the user
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchDiaries();
   }, [search, page]); // Trigger fetch when search or page changes
 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <Loader2 className="animate-spin"/>
+        <Loader2 className="animate-spin" />
       </div>
-    )
+    );
   }
 
   return (
-
     <div className="flex flex-col lg:flex-row h-screen">
-      <div className="lg:w-64 w-full h-auto" >
-      <Navbar mode="sidebar"/>
+      <div className="lg:w-64 w-full h-auto">
+        <Navbar mode="sidebar" />
       </div>
       <div className="flex flex-col gap-5 p-4 flex-grow">
         <div className="items-center mt-5">
           <h2 className="text-black text-2xl lg:text-4xl font-semibold">
-            Your diary
+            Your Diary
           </h2>
           <div className="flex flex-col lg:flex-row justify-between gap-3 mt-5">
             {/* Search input */}
@@ -58,7 +73,10 @@ const Diary = () => {
               type="text"
               placeholder="Search diaries..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setPage(1); // Reset to first page on new search
+              }}
               className="p-2 border rounded w-full lg:w-72"
             />
             {/* Button to go to Add Diary page */}
@@ -69,34 +87,38 @@ const Diary = () => {
             </Link>
           </div>
         </div>
-
+  
         {/* Display diaries */}
         <div className="flex flex-col gap-5 p-4 w-full">
-          {diaries.map((diary: any) => (
-            <Link key={diary.id} href={`/diary/${diary.id}`}>
-              <Card className="cursor-pointer hover:transition hover:shadow-lg">
-                <CardHeader>
-                  <CardTitle>
-                    <h2 className="text-lg lg:text-xl font-bold">{diary.title}</h2>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-700 truncate">{diary.content}</p>
-                  <small className="text-gray-500">
-                    {new Date(diary.createdAt).toLocaleDateString()}
-                  </small>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
+          {diaries.length === 0 ? (
+            <p className="text-center text-gray-500">No diaries found.</p>
+          ) : (
+            diaries.map((diary) => (
+              <Link key={diary.id} href={`/diary/${diary.id}`}>
+                <Card className="cursor-pointer hover:transition hover:shadow-lg">
+                  <CardHeader>
+                    <CardTitle>
+                      <h2 className="text-lg lg:text-xl font-bold">{diary.title}</h2>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-700 truncate">{diary.content}</p>
+                    <small className="text-gray-500">
+                      {new Date(diary.createdAt).toLocaleDateString()}
+                    </small>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))
+          )}
         </div>
-
+  
         {/* Pagination controls */}
         <div className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-3">
           <button
             disabled={page <= 1}
-            onClick={() => setPage(page - 1)}
-            className="p-2 border rounded w-full sm:w-auto"
+            onClick={() => setPage((prevPage) => prevPage - 1)}
+            className="p-2 border rounded w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Previous
           </button>
@@ -105,8 +127,8 @@ const Diary = () => {
           </span>
           <button
             disabled={page >= totalPages}
-            onClick={() => setPage(page + 1)}
-            className="p-2 border rounded w-full sm:w-auto"
+            onClick={() => setPage((prevPage) => prevPage + 1)}
+            className="p-2 border rounded w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Next
           </button>
