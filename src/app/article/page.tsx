@@ -1,5 +1,5 @@
 import Navbar from '@/components/Navbar'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import React from 'react'
 import Link from "next/link";
 import { articles } from "../../data/articles";
@@ -27,7 +27,7 @@ const page = () => {
         {articles.map((article) => (
           <Card key={article.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
             <CardHeader className="p-0">
-              <img
+              <Image
                 src={article.image}
                 alt={article.title}
                 width={500}

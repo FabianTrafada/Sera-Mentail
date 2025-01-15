@@ -7,7 +7,9 @@ import { motion } from "framer-motion";
 import React, { useState } from "react";
 
 const ChatPage = () => {
-  const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
+  const [messages, setMessages] = useState<{ role: string; content: string }[]>(
+    []
+  );
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -21,7 +23,7 @@ const ChatPage = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/chat", {
+      const response = await fetch("/api/chatbot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
@@ -35,8 +37,9 @@ const ChatPage = () => {
 
       const botMessage = { role: "system", content: data.reply };
       setMessages((prev) => [...prev, botMessage]);
+      /* eslint-disable @typescript-eslint/no-unused-vars */
     } catch (error) {
-      console.error("Error:", error.message || error);
+      console.error("Error");
       setMessages((prev) => [
         ...prev,
         { role: "system", content: "Sorry, something went wrong." },
@@ -81,7 +84,11 @@ const ChatPage = () => {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
+                transition={{
+                  duration: 0.5,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
                 className="text-left text-gray-500 italic"
               >
                 Typing...
