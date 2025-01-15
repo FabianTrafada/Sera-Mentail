@@ -31,7 +31,6 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
   const [isMobile, setIsMobile] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathname = usePathname();
-  const [isDashboard, setIsDashboard] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {

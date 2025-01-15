@@ -1,14 +1,14 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { articles } from "../../../data/articles";
 import Navbar from "@/components/Navbar";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
 
 const ArticlePage = () => {
-  const router = useRouter();
   const { id } = useParams(); // Mengambil parameter ID dari URL
 
   if (!id) {
@@ -31,7 +31,7 @@ const ArticlePage = () => {
       <div className="pt-20 px-4 md:px-8 lg:px-16 flex flex-col lg:flex-row gap-10">
         <div className="flex-1">
           <h1 className="text-4xl font-bold mb-4">{article.title}</h1>
-          <img
+          <Image
             src={article.image}
             alt={article.title}
             width={800}
@@ -49,7 +49,7 @@ const ArticlePage = () => {
               .map((otherArticle) => (
                 <Card key={otherArticle.id} className="bg-white shadow-lg rounded-lg overflow-hidden mb-5">
                   <CardHeader className="p-0">
-                    <img
+                    <Image
                       src={otherArticle.image}
                       alt={otherArticle.title}
                       width={500}
