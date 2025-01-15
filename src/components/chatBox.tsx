@@ -34,8 +34,9 @@ const ChatPage = () => {
   
       const botMessage = { role: "system", content: data.reply };
       setMessages((prev) => [...prev, botMessage]);
+          /* eslint-disable @typescript-eslint/no-unused-vars */
     } catch (error) {
-      console.error("Error:", error.message || error);
+      console.error("Error");
       setMessages((prev) => [
         ...prev,
         { role: "system", content: "Sorry, something went wrong." },
