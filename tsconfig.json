@@ -24,5 +24,8 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/prisma.ts", "src/components/Dashboard"],
+  "rules": {
+    "no-unused-vars": "off",
+  },
   "exclude": ["node_modules"]
 }

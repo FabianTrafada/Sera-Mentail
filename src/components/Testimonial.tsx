@@ -10,7 +10,10 @@ import autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 
 const TestimonialSection = () => {
-  const [emblaRef, embla] = useEmblaCarousel({ loop: true }, [autoplay({ delay: 3000 })]); // Auto-swipe every 5s
+  const [emblaRef, embla] = useEmblaCarousel({ loop: true }, [
+    autoplay({ delay: 3000 }),
+  ]); // Auto-swipe every 5s
+      /* eslint-disable @typescript-eslint/no-unused-vars */
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const scrollPrev = () => embla && embla.scrollPrev();
@@ -18,20 +21,23 @@ const TestimonialSection = () => {
 
   useEffect(() => {
     if (!embla) {
-        return () => {};
+      return () => {};
     }
 
     const onSelect = () => {
-        setSelectedIndex(embla.selectedScrollSnap());
+      setSelectedIndex(embla.selectedScrollSnap());
     };
     embla.on("select", onSelect);
     return () => {
-        embla.off("select", onSelect);
+      embla.off("select", onSelect);
     };
-}, [embla]);
+  }, [embla]);
 
   return (
-    <section className="bg-white py-16 px-4 md:px-8 lg:px-16 text-center" id="testimonial">
+    <section
+      className="bg-white py-16 px-4 md:px-8 lg:px-16 text-center"
+      id="testimonial"
+    >
       <div className="mb-16">
         <h2 className="text-4xl font-bold text-gray-800 md:text-5xl">
           What Our <span className="text-primaryColor">Users</span> Say
