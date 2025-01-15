@@ -125,7 +125,7 @@ const Navbar = ({ mode = "navbar" }: NavProps) => {
             <div className="flex flex-col gap-4">
               <SignedIn>
                 <ClerkLoading>
-                  <Loader2 className="animate-spin" />
+                  <Loader2 className="animate-spin"/>
                 </ClerkLoading>
                 <ClerkLoaded>
                   <UserButton afterSignOutUrl="/" />

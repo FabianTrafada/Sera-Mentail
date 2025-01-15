@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { Loader2 } from "lucide-react";
 
 const Diary = () => {
   const [diaries, setDiaries] = useState([]);
@@ -33,9 +34,13 @@ const Diary = () => {
     fetchDiaries();
   }, [search, page]); // Trigger fetch when search or page changes
 
-  // if (loading) {
-  //   return <p>Loading...</p>;
-  // }
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader2 className="animate-spin"/>
+      </div>
+    )
+  }
 
   return (
 
