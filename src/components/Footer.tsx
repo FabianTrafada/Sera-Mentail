@@ -30,7 +30,7 @@ const FooterSection = () => {
             </li>
             <li>
               <a href="#" className="hover:text-white transition-colors">
-                Pricing
+                Testimonial
               </a>
             </li>
             <li>
