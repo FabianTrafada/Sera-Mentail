@@ -3,7 +3,7 @@ export const articles = [
         id: "1",
         title: "Apa itu Toxic Masculinity? Mengenal Kesehatan Mental Pria Lebih Dalam",
         content: "Toxic masculinity merupakan tekanan budaya patriarkis yang tidak jarang menghasilkan gangguan mental pada lelaki dan orang-orang lain. Salah satu bentuk tekanan toxic masculinity adalah keharusan pria untuk menekan emosi mereka agar tidak terlihat lemah.",
-        image: "https://bunda.co.id/wp-content/uploads/2022/05/Bunda-3-e1672667828763.jpg.webp"
+        image: "https://bunda.co.id/wp-content/uploads/2022/05/Bunda-3-e1672667828763.jpg"
     },
     {
         id: "2",
